@@ -1,0 +1,8 @@
+/* App.css — estilos próprios mínimos.
+   O grosso da estilização está em index.css + Tailwind. */
+
+.app-shell {
+  width: 100%;
+  min-height: 100svh;
+  position: relative;
+}
