@@ -1,8 +1,8 @@
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { ChevronDown, Flame, MapPin } from 'lucide-react';
 
 export function Hero() {
-  const reduce = useReducedMotion();
+ 
 
   const fadeUp = {
     hidden: { opacity: 0, y: 24 },
