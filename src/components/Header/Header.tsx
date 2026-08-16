@@ -38,7 +38,7 @@ export function Header() {
               <img
   src="/favicon.svg"
   alt=""
-  className="w-4 h-4 object-contain"
+  className="w- h-12 object-contain"
   aria-hidden="true"
 />
               <span className="font-western tracking-wide text-sm md:text-base">

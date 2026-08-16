@@ -152,7 +152,7 @@ export function Hero() {
                 <img
   src="/favicon.svg"
   alt=""
-  className="w-4 h-4 object-contain"
+  className="w-10 h-10 object-contain"
   aria-hidden="true"
 />
 
