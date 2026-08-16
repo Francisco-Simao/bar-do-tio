@@ -1,4 +1,4 @@
-import { Flame, MapPin, Phone } from 'lucide-react';
+import { MapPin, Phone } from 'lucide-react';
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -54,7 +54,12 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 md:gap-6 items-start">
           <div className="flex flex-col items-center md:items-start gap-3">
             <div className="flex items-center gap-2 text-cream-100">
-              <Flame className="w-5 h-5 text-ember-500" />
+              <img
+  src="/favicon.svg"
+  alt=""
+  className="w-4 h-4 object-contain"
+  aria-hidden="true"
+/>
               <span className="font-western text-2xl">BAR DO TIO</span>
             </div>
             <p className="font-editorial text-cream-200/65 text-base md:text-lg">

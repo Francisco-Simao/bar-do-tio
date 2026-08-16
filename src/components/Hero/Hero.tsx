@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ChevronDown, Flame, MapPin } from 'lucide-react';
+import { ChevronDown, MapPin } from 'lucide-react';
 
 export function Hero() {
  
@@ -149,7 +149,12 @@ export function Hero() {
               className="mb-5 flex justify-center md:mb-7"
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-cream-200/20 bg-char-900/40 px-3 py-1.5 backdrop-blur-sm">
-                <Flame className="h-3.5 w-3.5 text-ember-400" />
+                <img
+  src="/favicon.svg"
+  alt=""
+  className="w-4 h-4 object-contain"
+  aria-hidden="true"
+/>
 
                 <span className="text-[10px] font-medium uppercase tracking-wider-3 text-cream-200 md:text-[11px]">
                   Cambuí · Minas Gerais

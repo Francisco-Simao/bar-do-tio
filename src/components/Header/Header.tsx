@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Flame } from 'lucide-react';
+
 
 // =============================================================
 // HEADER — seleto, fixo, com revelação sutil no scroll.
@@ -35,7 +35,12 @@ export function Header() {
               className="flex items-center gap-2 text-cream-100"
               aria-label="Bar do Tio — início"
             >
-              <Flame className="w-4 h-4 text-ember-500" />
+              <img
+  src="/favicon.svg"
+  alt=""
+  className="w-4 h-4 object-contain"
+  aria-hidden="true"
+/>
               <span className="font-western tracking-wide text-sm md:text-base">
                 BAR DO TIO
               </span>
