@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { ChevronDown, MapPin } from 'lucide-react';
 
 export function Hero() {
- 
+
 
   const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -119,7 +119,7 @@ export function Hero() {
 
             {/* IMAGEM ATRÁS DO TEXTO */}
             <div
-  className="
+              className="
     pointer-events-none
     absolute
     left-1/2
@@ -131,14 +131,14 @@ export function Hero() {
     items-center
     justify-center
   "
->
-  <img
-    src="/hero-bar.svg"
-    alt=""
-    aria-hidden="true"
-    className="w-full object-contain opacity-45 mix-blend-screen"
-  />
-</div>
+            >
+              <img
+                src="/hero-bar.svg"
+                alt=""
+                aria-hidden="true"
+                className="w-full object-contain opacity-45 mix-blend-screen"
+              />
+            </div>
 
             {/* SELO */}
             <motion.div
@@ -150,11 +150,11 @@ export function Hero() {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-cream-200/20 bg-char-900/40 px-3 py-1.5 backdrop-blur-sm">
                 <img
-  src="/favicon.svg"
-  alt=""
-  className="w-10 h-10 object-contain"
-  aria-hidden="true"
-/>
+                  src="/favicon.svg"
+                  alt=""
+                  className="w-10 h-10 object-contain"
+                  aria-hidden="true"
+                />
 
                 <span className="text-[10px] font-medium uppercase tracking-wider-3 text-cream-200 md:text-[11px]">
                   Cambuí · Minas Gerais
@@ -168,17 +168,11 @@ export function Hero() {
               animate="show"
               variants={fadeUp}
               custom={1}
-              className="
-                text-center
-                font-western
-                text-[clamp(3.4rem,18vw,10rem)]
-                leading-[0.85]
-                text-cream-100
-                md:text-[clamp(5rem,12vw,11rem)]
-              "
+              className="text-center text-cream-100 leading-[0.85] text-[clamp(3.4rem,18vw,10rem)] md:text-[clamp(5rem,12vw,11rem)]"
               style={{
+                fontFamily: "Empera, serif",
                 textShadow:
-                  '0 2px 0 rgba(0,0,0,.35), 0 12px 40px rgba(213,77,28,.18)',
+                  "0 2px 0 rgba(0,0,0,0.35), 0 12px 40px rgba(213,77,28,0.18)",
               }}
             >
               BAR DO TIO

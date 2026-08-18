@@ -2,19 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { menu } from '../../data/menu';
 
-// =============================================================
-// NAVEGAÇÃO STICKY DE CATEGORIAS
-// - Horizontal swipe
-// - Indicador da categoria ativa
-// - Highlight animado
-// - Acessível: usa links com hash para saltar às seções
-// =============================================================
-
 export function CategoryNavigation() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState<string>(menu[0]?.id ?? '');
 
-  // Atualiza a categoria ativa com base na seção visível
+  // Detecta qual categoria está atualmente visível
   useEffect(() => {
     const sections = menu
       .map((c) => document.getElementById(`cat-${c.id}`))
@@ -24,13 +16,14 @@ export function CategoryNavigation() {
 
     const obs = new IntersectionObserver(
       (entries) => {
-        // pega a entrada mais visível
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort(
             (a, b) =>
-              (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0),
+              (b.intersectionRatio ?? 0) -
+              (a.intersectionRatio ?? 0),
           );
+
         if (visible[0]) {
           const id = visible[0].target.id.replace('cat-', '');
           setActiveId(id);
@@ -42,27 +35,56 @@ export function CategoryNavigation() {
       },
     );
 
-    sections.forEach((s) => obs.observe(s));
+    sections.forEach((section) => obs.observe(section));
+
     return () => obs.disconnect();
   }, []);
 
-  // Centraliza a categoria ativa ao clicar
+  // Clique em uma categoria
   const handleClick = (id: string) => {
     setActiveId(id);
-    const el = containerRef.current?.querySelector<HTMLButtonElement>(
-      `button[data-id="${id}"]`,
-    );
-    if (el && containerRef.current) {
+
+    // Centraliza o botão na barra horizontal
+    const button =
+      containerRef.current?.querySelector<HTMLButtonElement>(
+        `button[data-id="${id}"]`,
+      );
+
+    if (button && containerRef.current) {
       const parent = containerRef.current;
-      const left = el.offsetLeft - parent.clientWidth / 2 + el.clientWidth / 2;
-      parent.scrollTo({ left, behavior: 'smooth' });
+
+      const left =
+        button.offsetLeft -
+        parent.clientWidth / 2 +
+        button.clientWidth / 2;
+
+      parent.scrollTo({
+        left,
+        behavior: 'smooth',
+      });
+    }
+
+    // Rola até a categoria
+    const section = document.getElementById(`cat-${id}`);
+
+    if (section) {
+      const offset = 70;
+
+      const top =
+        section.getBoundingClientRect().top +
+        window.scrollY -
+        offset;
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth',
+      });
     }
   };
 
   return (
     <div
-      id="cardapio"
-      className="sticky top-0 z-30 backdrop-blur-md bg-char-950/85 border-y border-cream-200/10 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.6)]"
+      className="sticky top-0 z-50 w-full backdrop-blur-md bg-char-950/95 border-y border-cream-200/10 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.6)]"
       role="navigation"
       aria-label="Navegação do cardápio"
     >
@@ -73,6 +95,7 @@ export function CategoryNavigation() {
       >
         {menu.map((cat) => {
           const active = activeId === cat.id;
+
           return (
             <button
               key={cat.id}
@@ -99,6 +122,7 @@ export function CategoryNavigation() {
                   aria-hidden
                 />
               )}
+
               <span className="relative z-10 whitespace-nowrap">
                 {cat.label}
               </span>
@@ -106,8 +130,8 @@ export function CategoryNavigation() {
           );
         })}
       </div>
+
       <AnimatePresence>
-        {/* faixa fina âmbar como detalhe */}
         <motion.div
           key="ember-line"
           initial={{ scaleX: 0 }}
