@@ -1,132 +1,168 @@
+import { motion } from 'motion/react';
+
+/**
+ * BannerHero — faixa inicial do Bar do Tio.
+ *
+ * Identidade: steakhouse / western sóbrio.
+ * - Banner principal: /banner-bar.jpg
+ * - Logo sobreposta:   /logo-bar-do-tio.svg
+ * - Faixa inferior:    char-950 com ornamento âmbar discreto
+ * - Botão cardápio:    leva para #cardapio
+ * - Redes sociais:     /icons/instagram.svg e /icons/whatsapp.svg
+ *
+ * Os hrefs de Instagram e WhatsApp estão como "#".
+ * Substituir pelos links oficiais quando estiverem definidos.
+ */
 
 export function BannerHero() {
   return (
-    <section className="relative w-full">
-
-      {/* ================= BANNER ================= */}
-      <div className="relative w-full h-[320px] md:h-[420px] lg:h-[500px] overflow-hidden">
-        <img
+    <section
+      id="banner"
+      className="relative w-full"
+      aria-label="Bar do Tio — banner principal"
+    >
+      {/* ================= BANNER (imagem principal) ================= */}
+      <div className="relative w-full h-[340px] sm:h-[400px] md:h-[460px] lg:h-[560px] overflow-hidden bg-char-950">
+        <motion.img
           src="/banner-bar.jpg"
-          alt="Bar do Tio"
-          className="w-full h-full object-cover"
+          alt="Bar do Tio — ambiente"
+          initial={{ scale: 1.06, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.4, ease: [0.22, 0.9, 0.3, 1] }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
 
-        {/* Escurecimento suave */}
-        <div className="absolute inset-0 bg-black/20" />
+        {/* Vinheta sutil — melhora leitura sem cobrir a imagem */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(10,13,7,0.35) 0%, rgba(10,13,7,0.10) 35%, rgba(10,13,7,0.55) 100%)',
+          }}
+          aria-hidden
+        />
+
+        {/* Textura sutil (film grain já existe no tailwind) */}
+        <div
+          className="absolute inset-0 pointer-events-none bg-film-grain opacity-25 mix-blend-overlay"
+          aria-hidden
+        />
       </div>
-      {/* LINHA DECORATIVA */}
-<div
-  className="absolute top-20 left-1/2 -translate-x-1/2 w-[75%] flex items-center gap-5 z-0"
-  aria-hidden="true"
->
-  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-ember-500/60 to-ember-500/40" />
 
-  <span className="text-ember-500 text-lg">
-    🔥
-  </span>
+      {/* ================= FAIXA INFERIOR (steakhouse) ================= */}
+      <div className="relative bg-char-950">
+        {/* Linha âmbar superior — detalhe discreto */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(213,77,28,0.0) 8%, rgba(213,77,28,0.55) 50%, rgba(213,77,28,0.0) 92%, transparent 100%)',
+          }}
+          aria-hidden
+        />
 
-  <div className="h-px flex-1 bg-gradient-to-l from-transparent via-ember-500/60 to-ember-500/40" />
-</div>
-
-
-      {/* ================= FAIXA INFERIOR ================= */}
-      <div className="relative h-[120px] md:h-[135px] bg-char-950">
-
-        <div className="relative h-full max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between">
-
-
-          {/* ===== LADO ESQUERDO ===== */}
-          <div className="flex items-center gap-6 md:gap-8">
-
-            {/* LOGO */}
-            <a
+        <div className="relative mx-auto max-w-7xl px-5 md:px-10 pt-10 pb-8 md:pt-12 md:pb-10">
+          {/* ===== LOGO — sobrepõe a transição banner/faixa ===== */}
+          <div className="flex justify-center md:justify-start">
+            <motion.a
               href="#hero"
               aria-label="Bar do Tio — início"
-              className="relative -mt-16 md:-mt-20 z-20 shrink-0"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.9, 0.3, 1] }}
+              className="relative -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-32 z-20 shrink-0"
             >
               <img
                 src="/logo-bar-do-tio.svg"
                 alt="Bar do Tio"
-                className="w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 object-contain"
+                className="w-32 sm:w-40 md:w-48 lg:w-56 h-auto object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.55)]"
               />
-            </a>
-
-
-           {/* REDES SOCIAIS */}
-<div className="flex items-center gap-4 md:gap-5">
-
-<a
-  href="#"
-  aria-label="Instagram"
-  className="group inline-flex transition-transform duration-300 hover:scale-110"
->
-  <svg
-    className="w-10 h-10 md:w-11 md:h-11 text-cream-100 transition-colors duration-300 group-hover:text-ember-500"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.4"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect
-      x="3"
-      y="3"
-      width="18"
-      height="18"
-      rx="5"
-    />
-
-    <circle
-      cx="12"
-      cy="12"
-      r="4"
-    />
-
-    <circle
-      cx="17.5"
-      cy="6.5"
-      r="0.7"
-      fill="currentColor"
-      stroke="none"
-    />
-  </svg>
-</a>
-
-  {/* WHATSAPP */}
-  <a
-    href="#"
-    aria-label="WhatsApp"
-    className="group inline-flex transition-transform duration-300 hover:scale-110"
-  >
-    <svg
-      className="w-10 h-10 md:w-11 md:h-11 fill-cream-100 transition-colors duration-300 group-hover:fill-ember-500"
-      viewBox="0 0 640 640"
-    >
-      <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z" />
-    </svg>
-  </a>
-
-</div>
+            </motion.a>
           </div>
 
-
-          {/* ===== CARDÁPIO — DIREITA ===== */}
-          <a
-            href="#cardapio"
-            className="inline-flex items-center justify-center gap-3 px-7 py-4 md:px-9 md:py-5 bg-ember-600 hover:bg-ember-500 text-cream-50 text-sm md:text-base tracking-wider-2 uppercase rounded-md transition-all duration-300 shadow-[0_8px_28px_-8px_rgba(213,77,28,0.6)]"
+          {/* ===== ORNAMENTO WESTERN DISCRETO ===== */}
+          <div
+            className="mt-6 md:mt-8 flex items-center justify-center gap-3 md:gap-4"
+            aria-hidden
           >
-            <span>Cardápio</span>
+            <span className="h-px w-16 md:w-28 bg-gradient-to-r from-transparent via-ember-500/60 to-ember-500/70" />
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              className="text-ember-500"
+              fill="currentColor"
+            >
+              <path d="M7 0 L8.6 5.4 L14 7 L8.6 8.6 L7 14 L5.4 8.6 L0 7 L5.4 5.4 Z" />
+            </svg>
+            <span className="h-px w-16 md:w-28 bg-gradient-to-l from-transparent via-ember-500/60 to-ember-500/70" />
+          </div>
 
-            <span className="text-lg">
-              ↓
-            </span>
-          </a>
+          {/* ===== REDES SOCIAIS + CARDÁPIO ===== */}
+          <div className="mt-6 md:mt-8 flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-between">
+            {/* Lado esquerdo / topo: redes sociais */}
+            <div className="flex items-center justify-center gap-5 md:gap-6">
+              {/* Instagram — substituir href pelo link oficial */}
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="group inline-flex items-center justify-center w-10 h-10 md:w-11 md:h-11 transition-all duration-300 hover:scale-110 focus-visible:scale-110"
+              >
+                <img
+                  src="/icons/instagram.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-contain transition-all duration-300 brightness-0 invert group-hover:sepia group-hover:saturate-[6] group-hover:hue-rotate-[-10deg]"
+                  style={{
+                    // cream-100 (branco) → ember-500 no hover
+                    filter:
+                      'brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(0deg)',
+                  }}
+                />
+              </a>
 
+              {/* WhatsApp — substituir href pelo número oficial (wa.me/55...) */}
+              <a
+                href="#"
+                aria-label="WhatsApp"
+                className="group inline-flex items-center justify-center w-10 h-10 md:w-11 md:h-11 transition-all duration-300 hover:scale-110 focus-visible:scale-110"
+              >
+                <img
+                  src="/icons/whatsapp.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-contain"
+                  style={{
+                    // cream-100 → ember-500 no hover (controlado pelo group-hover inline)
+                    filter:
+                      'brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(0deg)',
+                  }}
+                />
+              </a>
+            </div>
+
+            {/* Lado direito / baixo: botão cardápio */}
+            <motion.a
+              href="#cardapio"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 0.9, 0.3, 1] }}
+              className="group inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 bg-ember-600 hover:bg-ember-500 text-cream-50 text-sm md:text-base uppercase tracking-wider-2 rounded-sm transition-all duration-300 shadow-[0_10px_32px_-10px_rgba(213,77,28,0.55)] hover:shadow-[0_14px_38px_-10px_rgba(213,77,28,0.75)]"
+            >
+              <span>Cardápio</span>
+              <span className="inline-block text-lg leading-none transition-transform duration-300 group-hover:translate-y-0.5">
+                ↓
+              </span>
+            </motion.a>
+          </div>
         </div>
-      </div>
 
+        {/* Textura sutil na faixa */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-film-grain opacity-20 mix-blend-overlay"
+          aria-hidden
+        />
+      </div>
     </section>
   );
 }
-
