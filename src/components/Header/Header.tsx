@@ -1,79 +1,63 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 
-
-// =============================================================
-// HEADER — seleto, fixo, com revelação sutil no scroll.
-// Mostra o nome reduzido do bar (monograma) + acesso ao cardápio.
-// =============================================================
-
 export function Header() {
   const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 200], [0, 1]);
-  const blur = useTransform(scrollY, [0, 200], [0, 12]);
-  const height = useTransform(scrollY, [0, 200], [56, 64]);
+
+  // Header aparece somente depois de sair do topo
+  const opacity = useTransform(scrollY, [150, 250], [0, 1]);
+  const blur = useTransform(scrollY, [150, 250], [0, 12]);
+  const height = useTransform(scrollY, [150, 250], [56, 64]);
 
   return (
     <motion.header
-      style={{ height }}
-      className="fixed top-0 left-0 right-0 z-40"
+      style={{
+        height,
+        opacity,
+      }}
+      className="fixed top-0 left-0 right-0 z-40 pointer-events-none"
     >
       <motion.div
         style={{
-          backdropFilter: useTransform(blur, (v) => `blur(${v}px)`),
+          backdropFilter: useTransform(
+            blur,
+            (v) => `blur(${v}px)`
+          ),
         }}
         className="w-full h-full bg-char-950/0 border-b border-transparent"
       >
         <div className="relative w-full h-full">
+
+          {/* Fundo do Header */}
           <motion.div
             style={{ opacity }}
-            className="absolute inset-0 bg-char-950/85 border-b border-cream-200/10"
+            className="absolute inset-0 bg-char-950/90 border-b border-cream-200/10"
             aria-hidden
           />
-          <div className="relative h-full max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between">
+
+          {/* Conteúdo */}
+          <div className="relative h-full max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between pointer-events-auto">
+
+            {/* LOGO — ESQUERDA */}
             <a
               href="#hero"
-              className="flex items-center gap-2 text-cream-100"
+              className="flex items-center"
               aria-label="Bar do Tio — início"
             >
               <img
-  src="/favicon.svg"
-  alt=""
-  className="w- h-12 object-contain"
-  aria-hidden="true"
-/>
-              <span className="font-western tracking-wide text-sm md:text-base">
-                BAR DO TIO
-              </span>
+                src="/favicon.svg"
+                alt="Bar do Tio"
+                className="w-auto h-12 md:h-14 object-contain"
+              />
             </a>
-            <nav
-              className="hidden md:flex items-center gap-7 text-[11px] tracking-wider-2 uppercase text-cream-200/70"
-              aria-label="Navegação principal"
-            >
-              <a href="#cardapio" className="hover:text-cream-100 transition">
-                Cardápio
-              </a>
-              <a href="#historia" className="hover:text-cream-100 transition">
-                História
-              </a>
-              <a
-                href="#experiencia"
-                className="hover:text-cream-100 transition"
-              >
-                Ambiente
-              </a>
-              <a
-                href="#localizacao"
-                className="hover:text-cream-100 transition"
-              >
-                Contato
-              </a>
-            </nav>
+
+            {/* CARDÁPIO — DIREITA */}
             <a
               href="#cardapio"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ember-600/90 hover:bg-ember-500 text-cream-50 text-[11px] tracking-wider-2 uppercase rounded-sm transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-ember-600/90 hover:bg-ember-500 text-cream-50 text-[11px] md:text-xs tracking-wider-2 uppercase rounded-sm transition-colors"
             >
               Cardápio
             </a>
+
           </div>
         </div>
       </motion.div>
