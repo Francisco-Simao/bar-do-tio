@@ -35,25 +35,25 @@ export function Header() {
           />
 
           {/* Conteúdo */}
-          <div className="relative h-full max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between pointer-events-auto">
+          <div className="relative h-full max-w-6xl mx-auto px-4 sm:px-5 md:px-10 flex items-center justify-between pointer-events-auto gap-3">
 
             {/* LOGO — ESQUERDA */}
             <a
               href="#hero"
-              className="flex items-center"
+              className="flex items-center min-w-0"
               aria-label="Bar do Tio — início"
             >
               <img
                 src="/favicon.svg"
                 alt="Bar do Tio"
-                className="w-auto h-12 md:h-14 object-contain"
+                className="w-auto h-10 sm:h-12 md:h-14 object-contain"
               />
             </a>
 
             {/* CARDÁPIO — DIREITA */}
             <a
               href="#cardapio"
-              className="inline-flex items-center px-5 py-2.5 bg-ember-600/90 hover:bg-ember-500 text-cream-50 text-[11px] md:text-xs tracking-wider-2 uppercase rounded-sm transition-colors"
+              className="shrink-0 inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-ember-600/90 hover:bg-ember-500 text-cream-50 text-[11px] md:text-xs tracking-wider-2 uppercase rounded-sm transition-colors"
             >
               Cardápio
             </a>

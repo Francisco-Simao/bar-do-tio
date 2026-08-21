@@ -123,10 +123,11 @@ export function Hero() {
     pointer-events-none
     absolute
     left-1/2
-    top-[-140px]
+    top-[-100px] sm:top-[-140px]
     -z-10
     flex
-    w-[500px]
+    w-[300px] sm:w-[400px] md:w-[500px]
+    max-w-full
     -translate-x-1/2
     items-center
     justify-center

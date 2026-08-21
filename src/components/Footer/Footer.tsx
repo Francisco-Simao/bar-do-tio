@@ -57,7 +57,7 @@ export function Footer() {
               <img
   src="/favicon.svg"
   alt=""
-  className="w-25 h-20 object-contain"
+  className="w-20 h-16 md:w-24 md:h-20 object-contain"
   aria-hidden="true"
 />
               <span className="font-western text-2xl">BAR DO TIO</span>

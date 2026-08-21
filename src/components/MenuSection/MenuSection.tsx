@@ -1,17 +1,25 @@
 import { motion } from 'motion/react';
 import type { MenuCategory } from '../../data/menu';
 import { MenuItem } from '../MenuItem/MenuItem';
+import { ProductHorizontalLayout } from '../ProductHorizontalLayout/ProductHorizontalLayout';
 
 // =============================================================
 // MENU SECTION
-// Título da categoria → separador ornamentado → grid de items
+// Título da categoria → separador ornamentado → grid de items.
+// Aceita `layout` para alternar entre o card vertical (grid)
+// e o card horizontal (lista editorial com imagem à direita).
 // =============================================================
+
+export type ProductLayout = 'grid' | 'horizontal';
 
 interface Props {
   category: MenuCategory;
+  layout?: ProductLayout;
 }
 
-export function MenuSection({ category }: Props) {
+export function MenuSection({ category, layout = 'grid' }: Props) {
+  const isHorizontal = layout === 'horizontal';
+
   return (
     <section
       id={`cat-${category.id}`}
@@ -50,11 +58,23 @@ export function MenuSection({ category }: Props) {
         </motion.header>
 
         {/* Grid de produtos */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {category.items.map((item, i) => (
-            <MenuItem key={item.id} item={item} index={i} />
-          ))}
-        </div>
+        {isHorizontal ? (
+          <div className="flex flex-col gap-5 md:gap-6">
+            {category.items.map((item, i) => (
+              <ProductHorizontalLayout
+                key={item.id}
+                item={item}
+                index={i}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {category.items.map((item, i) => (
+              <MenuItem key={item.id} item={item} index={i} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

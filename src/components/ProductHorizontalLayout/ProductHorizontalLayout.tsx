@@ -3,9 +3,9 @@ import type { MenuItem as MenuItemType } from '../../data/menu';
 import { ProductLikeButton } from '../ProductLikeButton/ProductLikeButton';
 
 // =============================================================
-// MENU ITEM — Card editorial
-// Layout mobile-first: imagem topo, nome, descrição, preço.
-// Com ornamentos, linhas divisórias em couro e tipografia forte.
+// PRODUCT HORIZONTAL LAYOUT
+// Segundo layout do cardápio — imagem à direita, conteúdo à
+// esquerda. Inspirado no cardápio de steakhouse editorial.
 // =============================================================
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
   index: number;
 }
 
-export function MenuItem({ item, index }: Props) {
+export function ProductHorizontalLayout({ item, index }: Props) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -21,13 +21,53 @@ export function MenuItem({ item, index }: Props) {
       viewport={{ once: true, margin: '-60px' }}
       transition={{
         duration: 0.55,
-        delay: Math.min(index, 6) * 0.07,
+        delay: Math.min(index, 6) * 0.06,
         ease: [0.22, 0.9, 0.3, 1],
       }}
-      className="group relative flex flex-col bg-char-900/60 border border-cream-200/8 hover:border-ember-500/40 transition-all duration-500 rounded-sm overflow-hidden min-w-0"
+      className="
+        group relative grid grid-cols-1
+        sm:grid-cols-[minmax(0,1fr)_200px]
+        md:grid-cols-[minmax(0,1fr)_230px]
+        lg:grid-cols-[minmax(0,1fr)_260px]
+        gap-0
+        bg-char-900/55 border border-cream-200/8
+        hover:border-ember-500/40
+        rounded-sm overflow-hidden
+        transition-all duration-500
+      "
     >
-      {/* Imagem com placeholder editorial */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-char-800">
+      {/* Conteúdo (esquerda) */}
+      <div className="flex flex-col justify-between p-4 md:p-5 lg:p-6 min-w-0">
+        <div className="flex flex-col gap-1.5 md:gap-2">
+          {item.highlight && (
+            <span className="self-start inline-block px-2 py-0.5 bg-ember-600/90 text-cream-50 text-[9px] tracking-wider-3 uppercase font-medium rounded-sm">
+              Da casa
+            </span>
+          )}
+
+          <h3 className="font-editorial text-xl md:text-2xl lg:text-[26px] text-cream-100 leading-tight">
+            {item.name}
+          </h3>
+
+          <div className="divider-leather my-0.5" aria-hidden />
+
+          <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <span className="font-western text-lg md:text-xl text-ember-500">
+            {item.price}
+          </span>
+          <span className="text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
+            Bar do Tio
+          </span>
+        </div>
+      </div>
+
+      {/* Imagem (direita) */}
+      <div className="relative aspect-[4/3] sm:aspect-auto sm:h-full w-full overflow-hidden bg-char-800 min-h-[160px] sm:min-h-0">
         {item.image ? (
           <img
             src={item.image}
@@ -38,54 +78,26 @@ export function MenuItem({ item, index }: Props) {
         ) : (
           <PlaceholderArt highlight={item.highlight} />
         )}
+
         {/* vinheta */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'linear-gradient(180deg, transparent 50%, rgba(12,12,10,0.65) 100%)',
+              'linear-gradient(180deg, transparent 55%, rgba(12,12,10,0.55) 100%)',
           }}
           aria-hidden
         />
-        {/* tag highlight */}
-        {item.highlight && (
-          <div className="absolute top-3 left-3 px-2 py-0.5 bg-ember-600/90 text-cream-50 text-[9px] tracking-wider-3 uppercase font-medium rounded-sm">
-            Da casa
-          </div>
-        )}
-        {/* botão de curtida sobre a imagem */}
-        <div className="absolute top-3 right-3 z-10">
-          <ProductLikeButton
-            productId={item.id}
-            size="sm"
-            variant="filled"
-          />
-        </div>
-      </div>
 
-      {/* Conteúdo */}
-      <div className="flex flex-col gap-2 p-4 md:p-5 min-w-0">
-        <h3 className="font-editorial text-xl md:text-2xl text-cream-100 leading-tight break-words">
-          {item.name}
-        </h3>
-        <div className="divider-leather my-1" aria-hidden />
-        <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed break-words">
-          {item.description}
-        </p>
-
-        <div className="flex items-end justify-between mt-3 gap-2 min-w-0">
-          <span className="font-western text-lg md:text-xl text-ember-500 whitespace-nowrap">
-            {item.price}
-          </span>
-          <span className="text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
-            Bar do Tio
-          </span>
+        {/* like button sobre a imagem */}
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
+          <ProductLikeButton productId={item.id} size="sm" variant="filled" />
         </div>
       </div>
 
       {/* canto decorativo (estampa couro) */}
       <span
-        className="absolute top-0 right-0 w-12 h-12 pointer-events-none opacity-50"
+        className="absolute top-0 left-0 w-12 h-12 pointer-events-none opacity-50 rotate-180"
         aria-hidden
       >
         <svg viewBox="0 0 48 48" className="w-full h-full">
@@ -115,12 +127,12 @@ function PlaceholderArt({ highlight }: { highlight?: boolean }) {
       />
       {/* padrão pontilhado */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.25]"
+        className="absolute inset-0 w-full h-full opacity-[0.22]"
         aria-hidden
       >
         <defs>
           <pattern
-            id={`pat-${highlight ? 'h' : 'n'}`}
+            id={`hpat-${highlight ? 'h' : 'n'}`}
             x="0"
             y="0"
             width="10"
@@ -133,19 +145,12 @@ function PlaceholderArt({ highlight }: { highlight?: boolean }) {
         <rect
           width="100%"
           height="100%"
-          fill={`url(#pat-${highlight ? 'h' : 'n'})`}
+          fill={`url(#hpat-${highlight ? 'h' : 'n'})`}
         />
       </svg>
       {/* monograma central */}
       <div className="relative font-western text-cream-100/85 text-5xl md:text-7xl">
         TIO
-      </div>
-      {/* ornamento */}
-      <div
-        className="absolute inset-x-0 bottom-3 text-center text-[9px] tracking-wider-3 uppercase text-cream-200/55"
-        aria-hidden
-      >
-        Bar do Tio · Cardápio
       </div>
     </div>
   );

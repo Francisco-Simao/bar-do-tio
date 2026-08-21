@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { ScrollIndicator } from '../ScrollIndicator/ScrollIndicator';
 
 /**
  * BannerHero — faixa inicial do Bar do Tio.
@@ -47,6 +48,9 @@ export function BannerHero() {
           className="absolute inset-0 pointer-events-none bg-film-grain opacity-25 mix-blend-overlay"
           aria-hidden
         />
+
+        {/* Indicador de scroll */}
+        <ScrollIndicator />
       </div>
 
       {/* ================= FAIXA INFERIOR (steakhouse) ================= */}

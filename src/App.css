@@ -3,6 +3,18 @@
 
 .app-shell {
   width: 100%;
+  max-width: 100%;
   min-height: 100svh;
   position: relative;
+  overflow-x: clip;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Garante que containers internos nunca ultrapassem a tela */
+.app-shell > * {
+  max-width: 100%;
 }
