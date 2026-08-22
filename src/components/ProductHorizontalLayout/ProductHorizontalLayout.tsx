@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
+import { useState } from 'react';
 import type { MenuItem as MenuItemType } from '../../data/menu';
 import { ProductLikeButton } from '../ProductLikeButton/ProductLikeButton';
+import { ProductDetailModal } from '../ProductDetailModal/ProductDetailModal';
 
 // =============================================================
 // PRODUCT HORIZONTAL LAYOUT
@@ -14,8 +16,11 @@ interface Props {
 }
 
 export function ProductHorizontalLayout({ item, index }: Props) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
   return (
-    <motion.article
+    <>
+      <motion.article
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -25,8 +30,7 @@ export function ProductHorizontalLayout({ item, index }: Props) {
         ease: [0.22, 0.9, 0.3, 1],
       }}
       className="
-        group relative grid grid-cols-1
-        sm:grid-cols-[minmax(0,1fr)_200px]
+        group relative grid grid-cols-[minmax(0,1fr)_clamp(104px,32vw,200px)]
         md:grid-cols-[minmax(0,1fr)_230px]
         lg:grid-cols-[minmax(0,1fr)_260px]
         gap-0
@@ -45,29 +49,43 @@ export function ProductHorizontalLayout({ item, index }: Props) {
             </span>
           )}
 
-          <h3 className="font-editorial text-xl md:text-2xl lg:text-[26px] text-cream-100 leading-tight">
+          <h3 className="font-editorial text-lg sm:text-xl md:text-2xl lg:text-[26px] text-cream-100 leading-tight break-words">
             {item.name}
           </h3>
 
           <div className="divider-leather my-0.5" aria-hidden />
 
-          <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed">
-            {item.description}
-          </p>
+          {item.description && (
+            <p className="font-sans text-xs sm:text-sm md:text-[15px] text-cream-200/70 leading-relaxed break-words">
+              {item.description}
+            </p>
+          )}
         </div>
 
         <div className="mt-4 flex items-end justify-between gap-3">
-          <span className="font-western text-lg md:text-xl text-ember-500">
+          <span className="font-western text-base sm:text-lg md:text-xl text-ember-500 whitespace-nowrap">
             {item.price}
           </span>
-          <span className="text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
+          <span className="hidden min-[380px]:inline text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
             Bar do Tio
           </span>
         </div>
       </div>
 
       {/* Imagem (direita) */}
-      <div className="relative aspect-[4/3] sm:aspect-auto sm:h-full w-full overflow-hidden bg-char-800 min-h-[160px] sm:min-h-0">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => setDetailsOpen(true)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setDetailsOpen(true);
+          }
+        }}
+        aria-label={`Ver detalhes de ${item.name}`}
+        className="relative h-full min-h-[156px] w-full overflow-hidden bg-char-800 text-left sm:min-h-0"
+      >
         {item.image ? (
           <img
             src={item.image}
@@ -90,7 +108,7 @@ export function ProductHorizontalLayout({ item, index }: Props) {
         />
 
         {/* like button sobre a imagem */}
-        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
+        <div className="absolute top-2 right-2 z-10" onClick={(event) => event.stopPropagation()}>
           <ProductLikeButton productId={item.id} size="sm" variant="filled" />
         </div>
       </div>
@@ -108,7 +126,12 @@ export function ProductHorizontalLayout({ item, index }: Props) {
           />
         </svg>
       </span>
-    </motion.article>
+      </motion.article>
+      <ProductDetailModal
+        item={detailsOpen ? item : null}
+        onClose={() => setDetailsOpen(false)}
+      />
+    </>
   );
 }
 

@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
+import { useState } from 'react';
 import type { MenuItem as MenuItemType } from '../../data/menu';
 import { ProductLikeButton } from '../ProductLikeButton/ProductLikeButton';
+import { ProductDetailModal } from '../ProductDetailModal/ProductDetailModal';
 
 // =============================================================
 // MENU ITEM — Card editorial
@@ -14,6 +16,7 @@ interface Props {
 }
 
 export function MenuItem({ item, index }: Props) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -27,13 +30,25 @@ export function MenuItem({ item, index }: Props) {
       className="group relative flex flex-col bg-char-900/60 border border-cream-200/8 hover:border-ember-500/40 transition-all duration-500 rounded-sm overflow-hidden min-w-0"
     >
       {/* Imagem com placeholder editorial */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-char-800">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => setDetailsOpen(true)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setDetailsOpen(true);
+          }
+        }}
+        className="relative aspect-[4/3] w-full overflow-hidden bg-char-800 text-left"
+        aria-label={`Ver detalhes de ${item.name}`}
+      >
         {item.image ? (
           <img
             src={item.image}
             alt={item.name}
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
         ) : (
           <PlaceholderArt highlight={item.highlight} />
@@ -54,7 +69,7 @@ export function MenuItem({ item, index }: Props) {
           </div>
         )}
         {/* botão de curtida sobre a imagem */}
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute top-3 right-3 z-10" onClick={(event) => event.stopPropagation()}>
           <ProductLikeButton
             productId={item.id}
             size="sm"
@@ -96,6 +111,10 @@ export function MenuItem({ item, index }: Props) {
           />
         </svg>
       </span>
+      <ProductDetailModal
+        item={detailsOpen ? item : null}
+        onClose={() => setDetailsOpen(false)}
+      />
     </motion.article>
   );
 }
