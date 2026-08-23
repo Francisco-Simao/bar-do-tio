@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import type { MenuCategory } from '../../data/menu';
+import type { MenuCategory, MenuItem as MenuItemType } from '../../data/menu';
 import { MenuItem } from '../MenuItem/MenuItem';
 import { ProductHorizontalLayout } from '../ProductHorizontalLayout/ProductHorizontalLayout';
 
@@ -15,9 +15,10 @@ export type ProductLayout = 'grid' | 'horizontal';
 interface Props {
   category: MenuCategory;
   layout?: ProductLayout;
+  onProductImageClick: (item: MenuItemType) => void;
 }
 
-export function MenuSection({ category, layout = 'grid' }: Props) {
+export function MenuSection({ category, layout = 'grid', onProductImageClick }: Props) {
   const isHorizontal = layout === 'horizontal';
 
   return (
@@ -65,13 +66,14 @@ export function MenuSection({ category, layout = 'grid' }: Props) {
                 key={item.id}
                 item={item}
                 index={i}
+                onImageClick={onProductImageClick}
               />
             ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {category.items.map((item, i) => (
-              <MenuItem key={item.id} item={item} index={i} />
+              <MenuItem key={item.id} item={item} index={i} onImageClick={onProductImageClick} />
             ))}
           </div>
         )}

@@ -11,9 +11,10 @@ import { ProductLikeButton } from '../ProductLikeButton/ProductLikeButton';
 interface Props {
   item: MenuItemType;
   index: number;
+  onImageClick: (item: MenuItemType) => void;
 }
 
-export function MenuItem({ item, index }: Props) {
+export function MenuItem({ item, index, onImageClick }: Props) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -27,7 +28,7 @@ export function MenuItem({ item, index }: Props) {
       className="group relative flex flex-col bg-char-900/60 border border-cream-200/8 hover:border-ember-500/40 transition-all duration-500 rounded-sm overflow-hidden min-w-0"
     >
       {/* Imagem com placeholder editorial */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-char-800">
+      <button type="button" onClick={() => onImageClick(item)} className="relative aspect-[4/3] w-full overflow-hidden bg-char-800 text-left focus-visible:z-20" aria-label={`Ver detalhes de ${item.name || 'produto'}`}>
         {item.image ? (
           <img
             src={item.image}
@@ -53,14 +54,10 @@ export function MenuItem({ item, index }: Props) {
             Da casa
           </div>
         )}
-        {/* botão de curtida sobre a imagem */}
-        <div className="absolute top-3 right-3 z-10">
-          <ProductLikeButton
-            productId={item.id}
-            size="sm"
-            variant="filled"
-          />
-        </div>
+      </button>
+      {/* botão de curtida independente para não acionar o detalhe */}
+      <div className="absolute top-3 right-3 z-10">
+        <ProductLikeButton productId={item.id} size="sm" variant="filled" />
       </div>
 
       {/* Conteúdo */}
@@ -69,14 +66,10 @@ export function MenuItem({ item, index }: Props) {
           {item.name}
         </h3>
         <div className="divider-leather my-1" aria-hidden />
-        <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed break-words">
-          {item.description}
-        </p>
+        {item.description && <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed break-words">{item.description}</p>}
 
         <div className="flex items-end justify-between mt-3 gap-2 min-w-0">
-          <span className="font-western text-lg md:text-xl text-ember-500 whitespace-nowrap">
-            {item.price}
-          </span>
+          {item.price && <span className="font-western text-lg md:text-xl text-ember-500 whitespace-nowrap">{item.price}</span>}
           <span className="text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
             Bar do Tio
           </span>

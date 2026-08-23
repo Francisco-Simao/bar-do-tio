@@ -23,11 +23,13 @@ import {
   saveProductLayout,
 } from './components/ProductLayoutSwitcher/ProductLayoutSwitcher';
 
-import { menu } from './data/menu';
+import { menu, type MenuItem } from './data/menu';
+import { ProductDetailModal } from './components/ProductDetailModal/ProductDetailModal';
 
 function App() {
   const [productLayout, setProductLayout] =
     useState<ProductLayout>('grid');
+  const [selectedProduct, setSelectedProduct] = useState<MenuItem | null>(null);
 
   // Carrega a preferência salva do usuário ao montar
   useEffect(() => {
@@ -70,6 +72,7 @@ function App() {
               key={cat.id}
               category={cat}
               layout={productLayout}
+              onProductImageClick={setSelectedProduct}
             />
           ))}
         </section>
@@ -89,6 +92,7 @@ function App() {
 
       {/* Botão voltar ao topo */}
       <BackToTop />
+      <ProductDetailModal item={selectedProduct} onClose={() => setSelectedProduct(null)} />
     </div>
   );
 }

@@ -84,7 +84,7 @@ export function CategoryNavigation() {
 
   return (
     <div
-      className="sticky top-0 z-50 w-full backdrop-blur-md bg-char-950/95 border-y border-cream-200/10 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.6)]"
+      className="sticky top-14 md:top-16 z-30 w-full backdrop-blur-md bg-char-950/95 border-y border-cream-200/10 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.6)]"
       role="navigation"
       aria-label="Navegação do cardápio"
     >

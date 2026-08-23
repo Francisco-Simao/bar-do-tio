@@ -11,9 +11,10 @@ import { ProductLikeButton } from '../ProductLikeButton/ProductLikeButton';
 interface Props {
   item: MenuItemType;
   index: number;
+  onImageClick: (item: MenuItemType) => void;
 }
 
-export function ProductHorizontalLayout({ item, index }: Props) {
+export function ProductHorizontalLayout({ item, index, onImageClick }: Props) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -25,7 +26,8 @@ export function ProductHorizontalLayout({ item, index }: Props) {
         ease: [0.22, 0.9, 0.3, 1],
       }}
       className="
-        group relative grid grid-cols-1
+        group relative grid grid-cols-[minmax(0,1fr)_112px]
+        min-[375px]:grid-cols-[minmax(0,1fr)_128px]
         sm:grid-cols-[minmax(0,1fr)_200px]
         md:grid-cols-[minmax(0,1fr)_230px]
         lg:grid-cols-[minmax(0,1fr)_260px]
@@ -37,7 +39,7 @@ export function ProductHorizontalLayout({ item, index }: Props) {
       "
     >
       {/* Conteúdo (esquerda) */}
-      <div className="flex flex-col justify-between p-4 md:p-5 lg:p-6 min-w-0">
+      <div className="flex flex-col justify-between p-3.5 min-w-0 min-[375px]:p-4 md:p-5 lg:p-6">
         <div className="flex flex-col gap-1.5 md:gap-2">
           {item.highlight && (
             <span className="self-start inline-block px-2 py-0.5 bg-ember-600/90 text-cream-50 text-[9px] tracking-wider-3 uppercase font-medium rounded-sm">
@@ -51,23 +53,19 @@ export function ProductHorizontalLayout({ item, index }: Props) {
 
           <div className="divider-leather my-0.5" aria-hidden />
 
-          <p className="font-sans text-sm md:text-[15px] text-cream-200/70 leading-relaxed">
-            {item.description}
-          </p>
+          {item.description && <p className="font-sans text-xs leading-relaxed text-cream-200/70 min-[375px]:text-sm md:text-[15px]">{item.description}</p>}
         </div>
 
         <div className="mt-4 flex items-end justify-between gap-3">
-          <span className="font-western text-lg md:text-xl text-ember-500">
-            {item.price}
-          </span>
-          <span className="text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap">
+          {item.price && <span className="font-western text-base text-ember-500 min-[375px]:text-lg md:text-xl">{item.price}</span>}
+          <span className="hidden text-[9px] tracking-wider-3 uppercase text-cream-200/40 whitespace-nowrap min-[375px]:inline">
             Bar do Tio
           </span>
         </div>
       </div>
 
       {/* Imagem (direita) */}
-      <div className="relative aspect-[4/3] sm:aspect-auto sm:h-full w-full overflow-hidden bg-char-800 min-h-[160px] sm:min-h-0">
+      <button type="button" onClick={() => onImageClick(item)} className="relative h-full min-h-[174px] w-full overflow-hidden bg-char-800 text-left focus-visible:z-20 sm:min-h-0" aria-label={`Ver detalhes de ${item.name || 'produto'}`}>
         {item.image ? (
           <img
             src={item.image}
@@ -89,10 +87,10 @@ export function ProductHorizontalLayout({ item, index }: Props) {
           aria-hidden
         />
 
-        {/* like button sobre a imagem */}
-        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
-          <ProductLikeButton productId={item.id} size="sm" variant="filled" />
-        </div>
+      </button>
+      {/* botão de curtida independente para não acionar o detalhe */}
+      <div className="absolute right-2 top-2 z-10 sm:right-3 sm:top-3">
+        <ProductLikeButton productId={item.id} size="sm" variant="filled" />
       </div>
 
       {/* canto decorativo (estampa couro) */}
