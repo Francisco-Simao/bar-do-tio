@@ -35,7 +35,7 @@ export function Header() {
           />
 
           {/* Conteúdo */}
-          <div className="relative h-full max-w-6xl mx-auto px-4 sm:px-5 md:px-10 flex items-center justify-between pointer-events-auto gap-3">
+          <div className="relative h-full max-w-6xl mx-auto px-4 sm:px-5 md:px-10 flex items-center pointer-events-auto gap-5">
 
             {/* LOGO — ESQUERDA */}
             <a
@@ -50,14 +50,20 @@ export function Header() {
               />
             </a>
 
-            {/* CARDÁPIO — DIREITA */}
-            <a
-              href="#cardapio"
-              className="shrink-0 inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 bg-ember-600/90 hover:bg-ember-500 text-cream-50 text-[11px] md:text-xs tracking-wider-2 uppercase rounded-sm transition-colors"
-            >
-              Cardápio
-            </a>
+           {/* NOSSA HISTÓRIA — AO LADO DA LOGO */}
+<a
+  href="#nossa-historia"
+  className="shrink-0 font-editorial text-[11px] md:text-xs tracking-wider-2 uppercase text-cream-100/80 hover:text-ember-500 transition-colors whitespace-nowrap"
+>
+  Nossa História
+</a>
 
+<a
+  href="#nosso-espaco"
+  className="shrink-0 font-editorial text-[11px] md:text-xs tracking-wider-2 uppercase text-cream-100/80 hover:text-ember-500 transition-colors whitespace-nowrap"
+>
+  Nosso Espaço
+</a>
           </div>
         </div>
       </motion.div>

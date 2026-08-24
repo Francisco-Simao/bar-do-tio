@@ -88,11 +88,11 @@ export function CategoryNavigation() {
       role="navigation"
       aria-label="Navegação do cardápio"
     >
-      <div
-        ref={containerRef}
-        className="no-scrollbar flex overflow-x-auto gap-1 px-4 md:px-10 py-3 md:py-3.5 scroll-smooth"
-        style={{ scrollSnapType: 'x proximity' }}
-      >
+<div
+  ref={containerRef}
+  className="no-scrollbar flex overflow-x-auto gap-1 px-4 md:px-10 pt-4 pb-3 md:pt-4.5 md:pb-3 scroll-smooth"
+  style={{ scrollSnapType: 'x proximity' }}
+>
         {menu.map((cat) => {
           const active = activeId === cat.id;
 
@@ -130,6 +130,15 @@ export function CategoryNavigation() {
           );
         })}
       </div>
+
+
+      <div className="flex justify-center px-4 pb-4">
+        <p className="text-[9px] md:text-[10px] uppercase tracking-[0.18em] text-cream-200/45 font-editorial whitespace-nowrap">
+          Role para ao lado para ver mais opções
+        </p>
+      </div>
+
+    
 
       <AnimatePresence>
         <motion.div
