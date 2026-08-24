@@ -25,20 +25,25 @@ export function MenuItem({ item, index, onImageClick }: Props) {
         delay: Math.min(index, 6) * 0.07,
         ease: [0.22, 0.9, 0.3, 1],
       }}
-      className="group relative flex flex-col bg-char-900/60 border border-cream-200/8 hover:border-ember-500/40 transition-all duration-500 rounded-sm overflow-hidden min-w-0"
+  className="group relative flex flex-col w-full max-w-[360px] mx-auto bg-char-900/60 border border-cream-200/8 hover:border-ember-500/40 transition-all duration-500 rounded-sm overflow-hidden min-w-0"
     >
       {/* Imagem com placeholder editorial */}
-      <button type="button" onClick={() => onImageClick(item)} className="relative aspect-[4/3] w-full overflow-hidden bg-char-800 text-left focus-visible:z-20" aria-label={`Ver detalhes de ${item.name || 'produto'}`}>
-        {item.image ? (
-          <img
-            src={item.image}
-            alt={item.name}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        ) : (
-          <PlaceholderArt highlight={item.highlight} />
-        )}
+<button
+  type="button"
+  onClick={() => onImageClick(item)}
+ className="relative aspect-[4/3] w-full overflow-hidden bg-char-800 text-left focus-visible:z-20"
+  aria-label={`Ver detalhes de ${item.name || 'produto'}`}
+>
+  {item.image ? (
+    <img
+      src={item.image}
+      alt={item.name}
+      loading="lazy"
+      className="absolute inset-0 w-full h-full object-contain bg-char-800"
+    />
+  ) : (
+    <PlaceholderArt highlight={item.highlight} />
+  )}
         {/* vinheta */}
         <div
           className="absolute inset-0 pointer-events-none"
