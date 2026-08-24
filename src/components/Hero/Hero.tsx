@@ -190,11 +190,13 @@ export function Hero() {
               <div className="flex items-center gap-3 text-[10px] uppercase tracking-wider-3 text-cream-200/70 md:text-xs">
                 <span className="hidden h-px w-10 bg-cream-200/30 md:block" />
 
-                <span>Parrilla</span>
+                <span>BBQ</span>
                 <span className="opacity-50">•</span>
-                <span>American BBQ</span>
+                <span>PARRILHA</span>
                 <span className="opacity-50">•</span>
-                <span>Minas</span>
+                <span>BEER</span>
+                <span className="opacity-50">•</span>
+                <span>DRINK</span>
 
                 <span className="hidden h-px w-10 bg-cream-200/30 md:block" />
               </div>
