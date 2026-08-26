@@ -3,7 +3,6 @@ import './App.css';
 
 import { Header } from './components/Header/Header';
 import { BannerHero } from './components/BannerHero/BannerHero';
-import { Hero } from './components/Hero/Hero';
 import { IntroSection } from './components/IntroSection/IntroSection';
 import { CategoryNavigation } from './components/CategoryNavigation/CategoryNavigation';
 import {
@@ -51,7 +50,6 @@ function App() {
         <BannerHero />
 
         {/* HERO ORIGINAL */}
-        <Hero />
 
         <IntroSection />
 

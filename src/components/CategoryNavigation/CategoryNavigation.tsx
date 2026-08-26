@@ -47,7 +47,7 @@ export function CategoryNavigation() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setShowScrollHint(false);
-    }, 8000);
+    }, 15000);
 
     return () => window.clearTimeout(timer);
   }, []);
